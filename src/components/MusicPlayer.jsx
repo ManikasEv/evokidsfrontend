@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Music2, Pause, Play, Volume1, Volume2, VolumeX, X } from 'lucide-react'
 
-// ─── Drop your MP3 into client/public/ and reference it here ─────────────────
-// e.g. place "music.mp3" in client/public/ → it becomes available as "/music.mp3"
-const TRACK_URL = '/Ren and Stimpy Soundtrack - Tom Fool.mp3'
+// ─── MP3 lives in client/public/ → copied to site root as /tom-fool.mp3 ───────
+// Use BASE_URL so subpath deploys work; avoid spaces in the filename (Netlify/CDN).
+const TRACK_URL = `${import.meta.env.BASE_URL}tom-fool.mp3`
 
 const DEFAULT_VOLUME = 0.25   // 25 % starting volume
 const MAX_VOLUME     = 1.00   // full slider range so 25 % shows at the 25 % mark
