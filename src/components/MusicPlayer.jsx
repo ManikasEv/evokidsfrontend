@@ -1,11 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Music2, Pause, Play, Volume1, Volume2, VolumeX, X } from 'lucide-react'
 
-// ─── Kevin MacLeod — "Sneaky Snitch" ─────────────────────────────────────────
-// Bouncy, silly 90s-cartoon vibe. Free under Creative Commons Attribution 4.0.
-// Credit: Kevin MacLeod (incompetech.com) — CC BY 4.0
-const TRACK_URL =
-  'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Sneaky%20Snitch.mp3'
+// ─── Drop your MP3 into client/public/ and reference it here ─────────────────
+// e.g. place "music.mp3" in client/public/ → it becomes available as "/music.mp3"
+const TRACK_URL = '/Ren and Stimpy Soundtrack - Tom Fool.mp3'
 
 const DEFAULT_VOLUME = 0.25   // 25 % starting volume
 const MAX_VOLUME     = 1.00   // full slider range so 25 % shows at the 25 % mark
@@ -68,7 +66,8 @@ export default function MusicPlayer() {
       startPlay()
     }
 
-    const events = ['click', 'scroll', 'keydown', 'touchstart']
+    // 'scroll' does NOT count as a user gesture in production browsers — omit it
+    const events = ['pointerdown', 'keydown']
     events.forEach(e => window.addEventListener(e, trigger, { passive: true }))
     return () => events.forEach(e => window.removeEventListener(e, trigger))
   }, [startPlay])
@@ -111,8 +110,8 @@ export default function MusicPlayer() {
                 🎵
               </div>
               <div>
-                <p className="text-xs font-900 text-gray-800 leading-tight">Cartoon Music</p>
-                <p className="text-xs text-gray-400 font-500 leading-tight">Kevin MacLeod</p>
+                <p className="text-xs font-900 text-gray-800 leading-tight">Tom Fool</p>
+                <p className="text-xs text-gray-400 font-500 leading-tight">Ren & Stimpy</p>
               </div>
             </div>
             <button
