@@ -1,41 +1,40 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { usePhotoManifest } from '../context/PhotoManifestContext'
 
 const campuses = [
   {
     key: 'zurich',
     to: '/campuses/zurich',
     addrKey: 'campuses.zurich_addr',
-    color: '#4a90d9',       // sky-blue
-    emoji: '🏙️',
+    color: '#4a90d9',
   },
   {
     key: 'baden',
     to: '/campuses/baden',
     addrKey: 'campuses.baden_addr',
-    color: '#e8604c',       // coral
-    emoji: '🌳',
+    color: '#e8604c',
   },
   {
     key: 'bad_ragaz',
     to: '/campuses/bad-ragaz',
     addrKey: 'campuses.bad_ragaz_addr',
-    color: '#7ed321',       // green
-    emoji: '💧',
+    color: '#7ed321',
   },
   {
     key: 'zug',
     to: '/campuses/zug',
     addrKey: null,
-    color: '#9b59b6',       // purple
-    emoji: '⭐',
+    color: '#9b59b6',
     comingSoon: true,
   },
 ]
 
 export default function Campuses() {
   const { t } = useTranslation()
+  const { manifest } = usePhotoManifest()
+  const cities = manifest.cities || {}
   const sectionRef = useRef(null)
 
   /* Staggered fade-up on scroll into view — pure CSS + IntersectionObserver */
@@ -99,29 +98,26 @@ export default function Campuses() {
       <section
         id="campuses"
         ref={sectionRef}
-        className="relative z-20 bg-white -mt-14 sm:-mt-20 lg:-mt-24 shadow-[0_-12px_40px_rgba(0,0,0,0.12)]"
+        className="relative z-20 bg-white -mt-12 sm:-mt-16 lg:-mt-20 shadow-[0_-12px_40px_rgba(0,0,0,0.12)]"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          {campuses.map((campus) => (
+          {campuses.map((campus) => {
+            const cityPhoto = cities[campus.key] ?? null
+            return (
             <div key={campus.key} className="campus-card border-r border-gray-100 last:border-r-0 flex flex-col">
 
-              {/* Photo placeholder with campus colour */}
+              {/* City photo per campus; fixed frame, uniform crop */}
               <div
-                className="h-52 flex flex-col items-center justify-center gap-2 relative overflow-hidden"
-                style={{ backgroundColor: campus.color }}
+                className="w-full h-56 sm:h-64 lg:h-72 shrink-0 overflow-hidden bg-neutral-100"
+                style={!cityPhoto ? { backgroundColor: campus.color } : undefined}
               >
-                {/* Subtle radial shine */}
-                <div
-                  className="absolute inset-0 opacity-20"
-                  style={{ background: 'radial-gradient(circle at 40% 35%, #fff 0%, transparent 65%)' }}
-                />
-                <span className="text-6xl relative z-10 select-none">{campus.emoji}</span>
-                <span
-                  className="text-xs font-bold uppercase tracking-widest text-white/70 relative z-10"
-                  style={{ letterSpacing: '0.2em' }}
-                >
-                  {t(`campuses.${campus.key}`)}
-                </span>
+                {cityPhoto ? (
+                  <img
+                    src={cityPhoto}
+                    alt=""
+                    className="h-full w-full object-cover object-center"
+                  />
+                ) : null}
               </div>
 
               {/* Info */}
@@ -151,7 +147,8 @@ export default function Campuses() {
               </div>
 
             </div>
-          ))}
+            )
+          })}
         </div>
       </section>
     </>

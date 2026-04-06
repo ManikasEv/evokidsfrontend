@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Send, CheckCircle2 } from 'lucide-react'
+import { useHomeActivityPhotos } from '../context/ActivityPhotosContext'
 
 const inputClass =
   'w-full px-4 py-2.5 border border-gray-300 text-gray-700 text-sm placeholder-gray-400 focus:outline-none focus:border-sky-400 transition-colors duration-150'
@@ -9,6 +10,7 @@ const labelClass = 'block text-sm font-600 text-gray-700 mb-1'
 
 export default function ContactForm() {
   const { t } = useTranslation()
+  const sidePhoto = useHomeActivityPhotos()?.contact
   const [form, setForm] = useState({
     firstName: '', lastName: '', phone: '', childAge: '', message: '', interest: 'trial',
   })
@@ -41,8 +43,18 @@ export default function ContactForm() {
 
   return (
     <section id="contact" className="bg-[#f8f8f8] py-16 md:py-20">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6">
+      <div
+        className={`mx-auto px-4 sm:px-6 grid gap-10 items-start ${
+          sidePhoto ? 'max-w-5xl md:grid-cols-2' : 'max-w-2xl'
+        }`}
+      >
+        {sidePhoto && (
+          <div className="hidden md:block rounded-2xl overflow-hidden shadow-md aspect-[4/5] max-h-[520px] bg-gray-200">
+            <img src={sidePhoto} alt="" className="h-full w-full object-cover" />
+          </div>
+        )}
 
+        <div>
         <h2 className="text-2xl md:text-3xl font-400 text-gray-800 text-center mb-2">
           {t('form.title')}
         </h2>
@@ -119,6 +131,7 @@ export default function ContactForm() {
             </button>
           </form>
         )}
+        </div>
       </div>
     </section>
   )

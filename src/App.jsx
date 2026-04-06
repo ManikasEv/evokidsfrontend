@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import MusicPlayer from './components/MusicPlayer'
+import { PhotoManifestProvider } from './context/PhotoManifestContext'
 
 import HomePage from './pages/HomePage'
 import OurMissionPage from './pages/about/OurMissionPage'
@@ -17,6 +18,7 @@ import CareersPage from './pages/CareersPage'
 
 export default function App() {
   return (
+    <PhotoManifestProvider>
     <div className="font-sans min-h-screen">
       <MusicPlayer />
       <Routes>
@@ -35,5 +37,6 @@ export default function App() {
         <Route path="*" element={<HomePage />} />
       </Routes>
     </div>
+    </PhotoManifestProvider>
   )
 }

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import heroImage from '../assets/hero/h1.jpg'
 
 export default function Hero() {
   const { t } = useTranslation()
@@ -8,14 +9,13 @@ export default function Hero() {
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #2c3e50 0%, #3d5a6e 40%, #4a7a8a 70%, #2c3e50 100%)' }}
     >
-      {/* Photo placeholder overlay — replace with real bg image later */}
+      <img src={heroImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0 bg-black/45" />
 
       {/* Content — extra bottom padding so campus cards can overlap into hero without crowding the CTA */}
-      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto pt-24 pb-28 sm:pb-32 md:pb-36">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-wide leading-tight mb-6 drop-shadow-lg">
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto pt-24 sm:pt-28 md:pt-32 pb-28 sm:pb-32 md:pb-36">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white uppercase tracking-wide leading-snug mb-6 drop-shadow-lg max-w-3xl mx-auto">
           {t('hero.headline')}
           <br />
           {t('hero.subheadline')}

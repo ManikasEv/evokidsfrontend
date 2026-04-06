@@ -207,20 +207,24 @@ export function SvgOctober() {
 export function SvgNovember() {
   return (
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      {/* Acorn cap */}
-      <path d="M 30 45 Q 50 30 70 45 L 65 55 Q 50 62 35 55 Z" fill="#6D4C41"/>
-      {/* Cap texture lines */}
-      <path d="M 35 42 Q 50 32 65 42" stroke="#4E342E" strokeWidth="1.5" fill="none" opacity="0.5"/>
-      <path d="M 33 48 Q 50 38 67 48" stroke="#4E342E" strokeWidth="1" fill="none" opacity="0.4"/>
-      {/* Stem on cap */}
-      <line x1="50" y1="32" x2="50" y2="22" stroke="#5D4037" strokeWidth="3" strokeLinecap="round"/>
-      {/* Acorn body */}
-      <ellipse cx="50" cy="68" rx="20" ry="16" fill="#8D6E63"/>
-      <ellipse cx="50" cy="68" rx="16" ry="12" fill="#A1887F"/>
-      {/* Body shine */}
-      <ellipse cx="43" cy="62" rx="5" ry="7" fill="#FFFFFF" opacity="0.15" transform="rotate(-15 43 62)"/>
-      {/* Bottom tip */}
-      <ellipse cx="50" cy="82" rx="5" ry="3" fill="#6D4C41"/>
+      {/* Cooking pot */}
+      <ellipse cx="50" cy="58" rx="28" ry="8" fill="#B0BEC5"/>
+      <path d="M 22 58 L 22 72 Q 22 82 50 82 Q 78 82 78 72 L 78 58 Z" fill="#90A4AE"/>
+      <ellipse cx="50" cy="58" rx="26" ry="6" fill="#CFD8DC"/>
+      {/* Handles */}
+      <path d="M 18 52 Q 14 55 18 60" stroke="#78909C" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M 82 52 Q 86 55 82 60" stroke="#78909C" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      {/* Steam */}
+      <path d="M 38 38 Q 40 28 38 20" stroke="#B0BEC5" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.8"/>
+      <path d="M 50 36 Q 52 26 50 18" stroke="#B0BEC5" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.8"/>
+      <path d="M 62 38 Q 64 28 62 20" stroke="#B0BEC5" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.8"/>
+      {/* Wooden spoon */}
+      <line x1="68" y1="48" x2="88" y2="28" stroke="#8D6E63" strokeWidth="4" strokeLinecap="round"/>
+      <ellipse cx="88" cy="26" rx="6" ry="4" fill="#A1887F"/>
+      {/* Veggies beside pot */}
+      <circle cx="28" cy="72" r="8" fill="#E53935"/>
+      <circle cx="28" cy="72" r="5" fill="#FFCDD2" opacity="0.5"/>
+      <ellipse cx="14" cy="78" rx="6" ry="10" fill="#43A047" transform="rotate(-15 14 78)"/>
     </svg>
   )
 }

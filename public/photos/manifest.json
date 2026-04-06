@@ -1,0 +1,12 @@
+{
+  "_": "List file paths under public/. Examples: photos/r/01.jpg, logo/en.png. Month keys: january..december.",
+  "r": [],
+  "a": [],
+  "k": [],
+  "inquiry": {},
+  "logo": {
+    "en": "",
+    "de": "",
+    "el": ""
+  }
+}

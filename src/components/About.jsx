@@ -1,16 +1,21 @@
 import { useTranslation } from 'react-i18next'
+import { useHomeActivityPhotos } from '../context/ActivityPhotosContext'
 
 export default function About() {
   const { t } = useTranslation()
+  const side = useHomeActivityPhotos()?.about
 
   return (
     <section id="about" className="bg-[#f8f8f8] py-16 md:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
 
-          {/* Photo placeholder — replace with real campus photo */}
-          <div className="bg-gray-300 rounded h-80 md:h-96 flex items-center justify-center">
-            <span className="text-7xl">🏫</span>
+          <div className="rounded h-80 md:h-96 flex items-center justify-center overflow-hidden bg-gray-200 relative">
+            {side ? (
+              <img src={side} alt="" className="absolute inset-0 w-full h-full object-cover" />
+            ) : (
+              <span className="text-7xl relative z-10">🏫</span>
+            )}
           </div>
 
           {/* Text */}

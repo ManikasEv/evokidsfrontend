@@ -5,6 +5,10 @@ import {
   SvgDecember, SvgJanuary, SvgFebruary,
 } from './inquirySVGs'
 
+/**
+ * Each month: same structure — `theme` = unit of inquiry title, `desc` = what we explore.
+ * Keep `name` as the calendar month (used on the card front + photo key via English name).
+ */
 export const inquirySeasons = [
   {
     key: 'spring',
@@ -15,21 +19,57 @@ export const inquirySeasons = [
     months: [
       {
         svgComponent: SvgMarch,
-        en: { name: 'March', desc: 'Exploring friendship, warmth and creativity as we chase away the winter blues with art, stories and cosy crafts.' },
-        de: { name: 'März', desc: 'Freundschaft, Wärme und Kreativität — wir vertreiben den Winter mit Kunst, Geschichten und gemütlichem Basteln.' },
-        el: { name: 'Μάρτιος', desc: 'Εξερευνούμε τη φιλία, τη ζεστασιά και τη δημιουργικότητα μέσα από τέχνη, ιστορίες και ζεστές κατασκευές.' },
+        en: {
+          name: 'March',
+          theme: 'Spring awakening',
+          desc: 'We explore friendship, creative expression, changing weather and the first signs of new life through art, stories and hands-on play.',
+        },
+        de: {
+          name: 'März',
+          theme: 'Frühlingserwachen',
+          desc: 'Wir erkunden Freundschaft, kreativen Ausdruck, wechselndes Wetter und die ersten Zeichen neuen Lebens durch Kunst, Geschichten und praktisches Spiel.',
+        },
+        el: {
+          name: 'Μάρτιος',
+          theme: 'Ξύπνημα της άνοιξης',
+          desc: 'Εξερευνούμε φιλία, δημιουργική έκφραση, μεταβαλλόμενο καιρό και τα πρώτα σημάδια νέας ζωής μέσα από τέχνη, ιστορίες και παιχνίδι.',
+        },
       },
       {
         svgComponent: SvgApril,
-        en: { name: 'April', desc: 'Welcoming spring! We discover budding plants, baby animals and the magic of new beginnings in nature.' },
-        de: { name: 'April', desc: 'Frühling willkommen! Wir entdecken sprießende Pflanzen, Jungtiere und die Magie des Neubeginns in der Natur.' },
-        el: { name: 'Απρίλιος', desc: 'Καλωσορίζουμε την άνοιξη! Ανακαλύπτουμε φυτά, μωρά ζώα και τη μαγεία της νέας αρχής στη φύση.' },
+        en: {
+          name: 'April',
+          theme: 'New life in nature',
+          desc: 'We explore budding plants, baby animals, growth cycles and the wonder of spring outdoors through observation, stories and discovery walks.',
+        },
+        de: {
+          name: 'April',
+          theme: 'Neues Leben in der Natur',
+          desc: 'Wir erkunden sprießende Pflanzen, Jungtiere, Wachstumszyklen und das Staunen über den Frühling draußen durch Beobachten, Geschichten und Entdeckertouren.',
+        },
+        el: {
+          name: 'Απρίλιος',
+          theme: 'Νέα ζωή στη φύση',
+          desc: 'Εξερευνούμε βλαστούς, μωρά ζώα, κύκλους ανάπτυξης και το θαύμα της άνοιξης μέσα από παρατήρηση, ιστορίες και βόλτες ανακάλυψης.',
+        },
       },
       {
         svgComponent: SvgMay,
-        en: { name: 'May', desc: 'Blossom time! We explore flowers, insects and the beauty of spring through sensory play and garden adventures.' },
-        de: { name: 'Mai', desc: 'Blütezeit! Wir erkunden Blumen, Insekten und die Schönheit des Frühlings durch Sinnesspiele und Gartenausflüge.' },
-        el: { name: 'Μάιος', desc: 'Ώρα ανθοφορίας! Εξερευνούμε λουλούδια, έντομα και την ομορφιά της άνοιξης μέσα από αισθητηριακά παιχνίδια.' },
+        en: {
+          name: 'May',
+          theme: 'Bloom and grow',
+          desc: 'We explore flowers, insects, gardens and the beauty of spring through sensory play, planting and outdoor adventures.',
+        },
+        de: {
+          name: 'Mai',
+          theme: 'Blühen und wachsen',
+          desc: 'Wir erkunden Blumen, Insekten, Gärten und die Schönheit des Frühlings durch Sinnesspiele, Pflanzen und Abenteuer draußen.',
+        },
+        el: {
+          name: 'Μάιος',
+          theme: 'Ανθίζω και μεγαλώνω',
+          desc: 'Εξερευνούμε λουλούδια, έντομα, κήπους και την ομορφιά της άνοιξης μέσα από αισθητηριακά παιχνίδια, φύτευση και περιπέτειες έξω.',
+        },
       },
     ],
   },
@@ -42,21 +82,57 @@ export const inquirySeasons = [
     months: [
       {
         svgComponent: SvgJune,
-        en: { name: 'June', desc: 'Sunshine and growth — we learn about plants, gardening and the wonderful world coming alive all around us.' },
-        de: { name: 'Juni', desc: 'Sonnenschein und Wachstum — wir lernen über Pflanzen, Gärtnern und die wunderbare Welt, die um uns herum erwacht.' },
-        el: { name: 'Ιούνιος', desc: 'Ήλιος και ανάπτυξη — μαθαίνουμε για φυτά, κηπουρική και τον υπέροχο κόσμο που ξυπνάει γύρω μας.' },
+        en: {
+          name: 'June',
+          theme: 'Sunshine and growth',
+          desc: 'We explore plants, sunlight, gardening and how living things grow through planting, caring for our space and outdoor investigation.',
+        },
+        de: {
+          name: 'Juni',
+          theme: 'Sonnenschein und Wachstum',
+          desc: 'Wir erkunden Pflanzen, Sonnenlicht, Gärtnern und wie Lebewesen wachsen durch Pflanzen, Pflege unseres Raums und Forschen draußen.',
+        },
+        el: {
+          name: 'Ιούνιος',
+          theme: 'Ήλιος και ανάπτυξη',
+          desc: 'Εξερευνούμε φυτά, ηλιακό φως, κηπουρική και πώς μεγαλώνουν οι ζωντανοί οργανισμοί μέσα από φύτευση, φροντίδα και έρευνα έξω.',
+        },
       },
       {
         svgComponent: SvgJuly,
-        en: { name: 'July', desc: 'Summer is here! Water play, sunshine science and celebrating all the amazing things we have learned together.' },
-        de: { name: 'Juli', desc: 'Sommer ist da! Wasserspiele, Sonnenwissenschaft und Feiern all der tollen Dinge, die wir gemeinsam gelernt haben.' },
-        el: { name: 'Ιούλιος', desc: 'Ήρθε το καλοκαίρι! Παιχνίδια με νερό, επιστήμη του ήλιου και γιορτή όλων όσων μάθαμε μαζί.' },
+        en: {
+          name: 'July',
+          theme: 'Summer discovery',
+          desc: 'We explore water, heat, light and simple science ideas through safe water play, experiments and celebrating what we have learned together.',
+        },
+        de: {
+          name: 'Juli',
+          theme: 'Sommer-Entdeckung',
+          desc: 'Wir erkunden Wasser, Wärme, Licht und einfache naturwissenschaftliche Ideen durch sicheres Wasserspiel, Experimente und gemeinsames Feiern des Gelernten.',
+        },
+        el: {
+          name: 'Ιούλιος',
+          theme: 'Καλοκαιρινή ανακάλυψη',
+          desc: 'Εξερευνούμε νερό, ζέστη, φως και απλές επιστημονικές ιδέες μέσα από ασφαλή παιχνίδια με νερό, πειράματα και γιορτή όσων μάθαμε μαζί.',
+        },
       },
       {
         svgComponent: SvgAugust,
-        en: { name: 'August', desc: 'Beach adventures, travel stories and exploring the wonderful world around us — from deserts to oceans.' },
-        de: { name: 'August', desc: 'Strandabenteuer, Reisegeschichten und die wunderbare Welt um uns herum erkunden — von Wüsten bis Ozeanen.' },
-        el: { name: 'Αύγουστος', desc: 'Παραλιακές περιπέτειες, ταξιδιωτικές ιστορίες και εξερεύνηση του υπέροχου κόσμου — από ερήμους ως ωκεανούς.' },
+        en: {
+          name: 'August',
+          theme: 'Our wide world',
+          desc: 'We explore different places, journeys and environments — from neighbourhoods to faraway lands — through stories, maps and imaginative play.',
+        },
+        de: {
+          name: 'August',
+          theme: 'Unsere weite Welt',
+          desc: 'Wir erkunden verschiedene Orte, Reisen und Umgebungen — von der Nachbarschaft bis zu fernen Ländern — durch Geschichten, Karten und fantasievolles Spiel.',
+        },
+        el: {
+          name: 'Αύγουστος',
+          theme: 'Ο ευρύς κόσμος μας',
+          desc: 'Εξερευνούμε διαφορετικά μέρη, ταξίδια και περιβάλλοντα — από τη γειτονιά ως μακρινούς τόπους — μέσα από ιστορίες, χάρτες και παιχνίδι φαντασίας.',
+        },
       },
     ],
   },
@@ -69,21 +145,57 @@ export const inquirySeasons = [
     months: [
       {
         svgComponent: SvgSeptember,
-        en: { name: 'September', desc: 'Back to school energy! New themes, new friendships and the first whispers of autumn leaves in the breeze.' },
-        de: { name: 'September', desc: 'Schulstart-Energie! Neue Themen, neue Freundschaften und das erste Rauschen der Herbstblätter im Wind.' },
-        el: { name: 'Σεπτέμβριος', desc: 'Ενέργεια επιστροφής στο σχολείο! Νέα θέματα, νέες φιλίες και οι πρώτες ψιθύρους του φθινοπώρου.' },
+        en: {
+          name: 'September',
+          theme: 'A new year together',
+          desc: 'We explore routines, new friendships, autumn’s first signs and how we learn and care for one another in our group.',
+        },
+        de: {
+          name: 'September',
+          theme: 'Ein neues Jahr gemeinsam',
+          desc: 'Wir erkunden Routinen, neue Freundschaften, erste Herbstzeichen und wie wir in der Gruppe lernen und füreinander sorgen.',
+        },
+        el: {
+          name: 'Σεπτέμβριος',
+          theme: 'Μια νέα χρονιά μαζί',
+          desc: 'Εξερευνούμε ρουτίνες, νέες φιλίες, τα πρώτα σημάδια του φθινοπώρου και πώς μαθαίνουμε και φροντίζουμε ο ένας τον άλλον στην ομάδα.',
+        },
       },
       {
         svgComponent: SvgOctober,
-        en: { name: 'October', desc: 'Autumn leaves, harvest time and the mystery of how things change, transform and prepare for a new season.' },
-        de: { name: 'Oktober', desc: 'Herbstblätter, Erntezeit und das Geheimnis, wie sich Dinge verändern und auf eine neue Saison vorbereiten.' },
-        el: { name: 'Οκτώβριος', desc: 'Φθινοπωρινά φύλλα, εποχή συγκομιδής και το μυστήριο του πώς αλλάζουν τα πράγματα και ετοιμάζονται για νέα εποχή.' },
+        en: {
+          name: 'October',
+          theme: 'Change and harvest',
+          desc: 'We explore autumn leaves, harvest, how nature changes and how we prepare for winter through observation, stories and seasonal activities.',
+        },
+        de: {
+          name: 'Oktober',
+          theme: 'Wandel und Ernte',
+          desc: 'Wir erkunden Herbstblätter, Ernte, wie sich die Natur verändert und wie wir uns auf den Winter vorbereiten durch Beobachten, Geschichten und saisonale Aktivitäten.',
+        },
+        el: {
+          name: 'Οκτώβριος',
+          theme: 'Αλλαγή και συγκομιδή',
+          desc: 'Εξερευνούμε φθινοπωρινά φύλλα, τη συγκομιδή, πώς αλλάζει η φύση και πώς ετοιμαζόμαστε για τον χειμώνα μέσα από παρατήρηση, ιστορίες και δραστηριότητες.',
+        },
       },
       {
         svgComponent: SvgNovember,
-        en: { name: 'November', desc: 'Gratitude and giving — we explore animals preparing for winter and learn about thankfulness and kindness.' },
-        de: { name: 'November', desc: 'Dankbarkeit und Schenken — wir erkunden Tiere, die sich auf den Winter vorbereiten, und lernen Dankbarkeit kennen.' },
-        el: { name: 'Νοέμβριος', desc: 'Ευγνωμοσύνη και δωρεά — εξερευνούμε ζώα που ετοιμάζονται για τον χειμώνα και μαθαίνουμε για την ευγνωμοσύνη.' },
+        en: {
+          name: 'November',
+          theme: 'Cooking and nutrition',
+          desc: 'We explore healthy foods, simple recipes, kitchen safety and the joy of preparing and sharing meals together.',
+        },
+        de: {
+          name: 'November',
+          theme: 'Kochen und Ernährung',
+          desc: 'Wir erkunden gesunde Lebensmittel, einfache Rezepte, Sicherheit in der Küche und die Freude am gemeinsamen Kochen und Essen.',
+        },
+        el: {
+          name: 'Νοέμβριος',
+          theme: 'Μαγειρική και διατροφή',
+          desc: 'Εξερευνούμε υγιεινά τρόφιμα, απλές συνταγές, ασφάλεια στην κουζίνα και τη χαρά του να μαγειρεύουμε και τρώμε μαζί.',
+        },
       },
     ],
   },
@@ -96,21 +208,57 @@ export const inquirySeasons = [
     months: [
       {
         svgComponent: SvgDecember,
-        en: { name: 'December', desc: 'Stars, lights and celebration — we discover winter festivities from cultures around the world, full of wonder and joy.' },
-        de: { name: 'Dezember', desc: 'Sterne, Lichter und Feierlichkeiten — wir entdecken Winterfeste aus Kulturen weltweit, voller Staunen und Freude.' },
-        el: { name: 'Δεκέμβριος', desc: 'Αστέρια, φώτα και γιορτή — ανακαλύπτουμε χειμερινές γιορτές από πολιτισμούς σε όλο τον κόσμο, γεμάτες θαύμα.' },
+        en: {
+          name: 'December',
+          theme: 'Light and celebration',
+          desc: 'We explore winter festivals, lights, traditions from different cultures and the joy of sharing stories and celebrations together.',
+        },
+        de: {
+          name: 'Dezember',
+          theme: 'Licht und Feier',
+          desc: 'Wir erkunden Winterfeste, Lichter, Traditionen aus verschiedenen Kulturen und die Freude am gemeinsamen Erzählen und Feiern.',
+        },
+        el: {
+          name: 'Δεκέμβριος',
+          theme: 'Φως και γιορτή',
+          desc: 'Εξερευνούμε χειμερινές γιορτές, φώτα, παραδόσεις από διαφορετικούς πολιτισμούς και τη χαρά του να μοιραζόμαστε ιστορίες και γιορτές μαζί.',
+        },
       },
       {
         svgComponent: SvgJanuary,
-        en: { name: 'January', desc: 'A brand new year! We embrace the cold, discover the wonders of snow and ice, and set new goals together.' },
-        de: { name: 'Januar', desc: 'Ein brandneues Jahr! Wir umarmen die Kälte, entdecken die Wunder von Schnee und Eis und setzen neue Ziele.' },
-        el: { name: 'Ιανουάριος', desc: 'Ένα ολοκαίνουργιο έτος! Αγκαλιάζουμε το κρύο, ανακαλύπτουμε τα θαύματα του χιονιού και βάζουμε νέους στόχους.' },
+        en: {
+          name: 'January',
+          theme: 'Winter wonders',
+          desc: 'We explore cold weather, snow and ice, how animals adapt and how we set hopes and goals for the months ahead.',
+        },
+        de: {
+          name: 'Januar',
+          theme: 'Winterwunder',
+          desc: 'Wir erkunden kaltes Wetter, Schnee und Eis, wie sich Tiere anpassen und wie wir Hoffnungen und Ziele für die kommenden Monate setzen.',
+        },
+        el: {
+          name: 'Ιανουάριος',
+          theme: 'Χειμερινά θαύματα',
+          desc: 'Εξερευνούμε κρύο καιρό, χιόνι και πάγο, πώς προσαρμόζονται τα ζώα και πώς βάζουμε ελπίδες και στόχους για τους επόμενους μήνες.',
+        },
       },
       {
         svgComponent: SvgFebruary,
-        en: { name: 'February', desc: 'Exploring friendship, warmth and love — we celebrate togetherness with art, stories and heartfelt crafts.' },
-        de: { name: 'Februar', desc: 'Freundschaft, Wärme und Liebe — wir feiern das Miteinander mit Kunst, Geschichten und herzlichen Bastelprojekten.' },
-        el: { name: 'Φεβρουάριος', desc: 'Εξερευνούμε τη φιλία, τη ζεστασιά και την αγάπη — γιορτάζουμε τη συντροφικότητα με τέχνη και δημιουργικές κατασκευές.' },
+        en: {
+          name: 'February',
+          theme: 'Love and belonging',
+          desc: 'We explore kindness, empathy, family and community bonds through art, cooperative games and stories about caring for others.',
+        },
+        de: {
+          name: 'Februar',
+          theme: 'Liebe und Zugehörigkeit',
+          desc: 'Wir erkunden Freundlichkeit, Einfühlungsvermögen, Familie und Gemeinschaft durch Kunst, kooperative Spiele und Geschichten über Fürsorge.',
+        },
+        el: {
+          name: 'Φεβρουάριος',
+          theme: 'Αγάπη και αίσθηση ανήκειν',
+          desc: 'Εξερευνούμε καλοσύνη, ενσυναίσθηση, οικογένεια και δεσμούς κοινότητας μέσα από τέχνη, συνεργατικά παιχνίδια και ιστορίες φροντίδας.',
+        },
       },
     ],
   },

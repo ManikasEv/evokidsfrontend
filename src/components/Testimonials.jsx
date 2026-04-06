@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { testimonials } from '../data/testimonials'
+import { useHomeActivityPhotos } from '../context/ActivityPhotosContext'
 
 function Stars() {
   return (
@@ -15,6 +16,9 @@ function Stars() {
 
 export default function Testimonials() {
   const { t } = useTranslation()
+  const tPhotos = useHomeActivityPhotos()?.testimonials ?? []
+  const [left, center, right] = tPhotos
+  const accentRow = [left, center, right].filter(Boolean)
   const [current, setCurrent] = useState(0)
 
   const next = useCallback(() =>
@@ -33,6 +37,25 @@ export default function Testimonials() {
   return (
     <section className="bg-white py-16 md:py-20">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+
+        {accentRow.length > 0 && (
+          <div className="flex justify-center gap-3 mb-10">
+            {accentRow.map((src, i) => (
+              <div
+                key={i}
+                className={`w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shadow-md ring-2 ring-white ${
+                  i % 2 === 1 ? 'rotate-[2deg]' : '-rotate-2'
+                }`}
+              >
+                <img
+                  src={src}
+                  alt=""
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
+            ))}
+          </div>
+        )}
 
         <h2 className="text-2xl md:text-3xl font-400 text-gray-800 mb-12">
           {t('testimonials.title')}

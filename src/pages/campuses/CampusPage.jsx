@@ -4,11 +4,15 @@ import { useTranslation } from 'react-i18next'
 import { MapPin, Phone, Mail } from 'lucide-react'
 import PageLayout from '../../components/PageLayout'
 import PageHero from '../../components/PageHero'
+import { usePhotoManifest } from '../../context/PhotoManifestContext'
+import { activityPoolExcludingInquiry } from '../../utils/activityPhotos'
 
 const TABS = ['tuition', 'calendar', 'weekly', 'daily']
 
 export default function CampusPage({ campusKey, mapSrc, comingSoon }) {
   const { t } = useTranslation()
+  const { manifest } = usePhotoManifest()
+  const activityStrip = activityPoolExcludingInquiry(manifest)
   const [activeTab, setActiveTab] = useState('tuition')
 
   const fullAddr = t(`campuses.${campusKey}_full_addr`)
@@ -19,6 +23,27 @@ export default function CampusPage({ campusKey, mapSrc, comingSoon }) {
   return (
     <PageLayout>
       <PageHero title={name} breadcrumb={`${t('nav.campuses')} › ${name}`} />
+
+      {activityStrip.length > 0 && (
+        <section className="bg-white border-b border-gray-100 py-6 md:py-8">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex gap-4 overflow-x-auto pb-1 snap-x snap-mandatory">
+              {activityStrip.map((src, i) => (
+                <div
+                  key={i}
+                  className="shrink-0 w-52 sm:w-64 md:w-72 h-48 sm:h-56 md:h-60 rounded-xl shadow-sm snap-start bg-neutral-100 flex items-center justify-center p-2"
+                >
+                  <img
+                    src={src}
+                    alt=""
+                    className="max-w-full max-h-full w-auto h-auto object-contain object-center"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="bg-[#f8f8f8] py-16 md:py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

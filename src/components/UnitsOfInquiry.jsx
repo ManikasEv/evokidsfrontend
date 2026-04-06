@@ -1,65 +1,65 @@
 import { useTranslation } from 'react-i18next'
 import { inquirySeasons } from '../data/inquiryMonths'
+import { useInquiryPhoto } from '../context/PhotoManifestContext'
 
-/* Season icon emojis */
 const SEASON_ICONS = { spring: '🌸', summer: '☀️', autumn: '🍂', winter: '❄️' }
 
 function FlipCard({ month, lang, season }) {
   const Svg = month.svgComponent
+  const photoUrl = useInquiryPhoto(month.en.name)
 
   return (
-    <div
-      className="inquiry-flip-card"
-      style={{ perspective: '900px' }}
-    >
+    <div className="inquiry-flip-card" style={{ perspective: '900px' }}>
       <div className="inquiry-flip-inner">
-
-        {/* FRONT */}
         <div
-          className="inquiry-face inquiry-front rounded-2xl overflow-hidden shadow-sm"
+          className="inquiry-face inquiry-front flex flex-col overflow-hidden rounded-2xl shadow-sm"
           style={{ backgroundColor: season.lightBg }}
         >
-          {/* SVG illustration */}
-          <div className="flex items-center justify-center p-5" style={{ height: '158px' }}>
-            <div style={{ width: '120px', height: '120px' }}>
-              <Svg />
-            </div>
+          <div className="flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden bg-white/40 px-1.5 py-1.5 sm:px-2 sm:py-2">
+            {photoUrl ? (
+              <img
+                src={photoUrl}
+                alt=""
+                className="h-full w-full max-h-full object-contain object-center"
+              />
+            ) : (
+              <div className="flex h-full min-h-[200px] w-full items-center justify-center p-4">
+                <div className="h-44 w-44 max-w-[85%] sm:h-52 sm:w-52">
+                  <Svg />
+                </div>
+              </div>
+            )}
           </div>
-
-          {/* Month name bar */}
           <div
-            className="py-2.5 px-3 text-center"
+            className="shrink-0 px-3 py-2.5 text-center"
             style={{ backgroundColor: season.color }}
           >
-            <p className="text-white font-bold text-sm uppercase tracking-widest">
+            <p className="text-sm font-bold uppercase tracking-widest text-white sm:text-base">
               {month[lang].name}
             </p>
           </div>
         </div>
 
-        {/* BACK */}
         <div
-          className="inquiry-face inquiry-back rounded-2xl flex flex-col items-center justify-center p-5 shadow-sm"
+          className="inquiry-face inquiry-back flex flex-col items-center justify-center overflow-y-auto rounded-2xl p-4 shadow-sm sm:p-5"
           style={{ backgroundColor: season.color }}
         >
-          {/* Season badge */}
           <span
-            className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3"
-            style={{ backgroundColor: 'rgba(255,255,255,0.22)', color: '#fff' }}
+            className="mb-3 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest text-white"
+            style={{ backgroundColor: 'rgba(255,255,255,0.22)' }}
           >
             {SEASON_ICONS[season.key]}&nbsp;&nbsp;{season[lang]}
           </span>
-
-          <p className="text-white font-black text-lg mb-3 text-center">
+          <p className="mb-1.5 text-center text-[10px] font-bold uppercase tracking-widest text-white/70">
             {month[lang].name}
           </p>
-
-          <p className="text-white/90 text-xs leading-relaxed text-center">
+          <p className="mb-3 px-1 text-center text-base font-black leading-snug text-white sm:text-lg">
+            {month[lang].theme}
+          </p>
+          <p className="text-center text-xs leading-relaxed text-white/90">
             {month[lang].desc}
           </p>
-
-          {/* Hint */}
-          <p className="text-white/40 text-[10px] mt-4 uppercase tracking-widest">
+          <p className="mt-4 text-[10px] uppercase tracking-widest text-white/40">
             hover to flip back
           </p>
         </div>
@@ -70,12 +70,12 @@ function FlipCard({ month, lang, season }) {
 
 function SeasonHeader({ season, lang }) {
   return (
-    <div className="flex items-center gap-3 mb-6">
+    <div className="mb-6 flex items-center gap-3">
       <span className="text-2xl">{SEASON_ICONS[season.key]}</span>
       <h3 className="text-xl font-black uppercase tracking-widest" style={{ color: season.color }}>
         {season[lang]}
       </h3>
-      <div className="flex-1 h-px" style={{ backgroundColor: season.color, opacity: 0.25 }} />
+      <div className="h-px flex-1" style={{ backgroundColor: season.color, opacity: 0.25 }} />
     </div>
   )
 }
@@ -88,7 +88,7 @@ export default function UnitsOfInquiry() {
     <>
       <style>{`
         .inquiry-flip-card {
-          height: 210px;
+          height: 380px;
           position: relative;
         }
         .inquiry-flip-inner {
@@ -116,12 +116,11 @@ export default function UnitsOfInquiry() {
       `}</style>
 
       <section className="bg-white py-16 md:py-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <h2 className="text-2xl md:text-3xl font-light text-gray-800 text-center mb-2">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-2 text-center text-2xl font-light text-gray-800 md:text-3xl">
             {t('inquiry.title')}
           </h2>
-          <p className="text-sm text-gray-400 text-center mb-14">
+          <p className="mb-14 text-center text-sm text-gray-400">
             Hover over a card to discover the monthly theme
           </p>
 
@@ -129,20 +128,14 @@ export default function UnitsOfInquiry() {
             {inquirySeasons.map((season) => (
               <div key={season.key}>
                 <SeasonHeader season={season} lang={lang} />
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
                   {season.months.map((month, i) => (
-                    <FlipCard
-                      key={i}
-                      month={month}
-                      lang={lang}
-                      season={season}
-                    />
+                    <FlipCard key={i} month={month} lang={lang} season={season} />
                   ))}
                 </div>
               </div>
             ))}
           </div>
-
         </div>
       </section>
     </>

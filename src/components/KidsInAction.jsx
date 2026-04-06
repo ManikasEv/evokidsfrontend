@@ -4,6 +4,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Camera } from 'lucide-react'
 import { useGsapEntrance } from '../hooks/useGsapEntrance'
+import { usePhotoManifest } from '../context/PhotoManifestContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -37,6 +38,8 @@ const slides = [
 
 export default function KidsInAction() {
   const { t } = useTranslation()
+  const { manifest } = usePhotoManifest()
+  const photosK = manifest.k
   const headingRef = useGsapEntrance()
   const gridRef = useRef(null)
   const [activeSlide, setActiveSlide] = useState(0)
@@ -136,21 +139,41 @@ export default function KidsInAction() {
           ref={gridRef}
           className="grid grid-cols-3 sm:grid-cols-4 auto-rows-[180px] gap-3 sm:gap-4"
         >
-          {current.map((slot, i) => (
+          {current.map((slot, i) => {
+            const photo =
+              photosK.length > 0
+                ? photosK[(activeSlide * 6 + i) % photosK.length]
+                : null
+            return (
             <div
               key={i}
               className={`photo-slot ${slot.cols} ${slot.bg} border-2 rounded-2xl flex flex-col items-center justify-center gap-2 overflow-hidden relative group`}
             >
-              {/* Placeholder content */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4">
-                <Camera size={22} className="text-stone-300" />
-                <span className="text-3xl">{slot.emoji}</span>
-                <span className="text-xs font-700 text-stone-400 text-center leading-tight">
+              {photo && (
+                <img
+                  src={photo}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              )}
+              <div
+                className={`absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 ${
+                  photo ? 'bg-black/35' : ''
+                }`}
+              >
+                {!photo && <Camera size={22} className="text-stone-300" />}
+                <span className="text-3xl drop-shadow-sm">{slot.emoji}</span>
+                <span
+                  className={`text-xs font-700 text-center leading-tight drop-shadow-sm ${
+                    photo ? 'text-white' : 'text-stone-400'
+                  }`}
+                >
                   {slot.label}
                 </span>
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Slide indicators */}
@@ -169,9 +192,11 @@ export default function KidsInAction() {
           ))}
         </div>
 
-        <p className="text-center text-sm text-stone-400 font-500 mt-4">
-          📷 Photos coming soon — our little ones in action!
-        </p>
+        {photosK.length === 0 && (
+          <p className="text-center text-sm text-stone-400 font-500 mt-4">
+            📷 Photos coming soon — our little ones in action!
+          </p>
+        )}
 
       </div>
     </section>

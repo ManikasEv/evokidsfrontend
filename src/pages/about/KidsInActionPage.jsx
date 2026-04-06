@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import PageLayout from '../../components/PageLayout'
 import PageHero from '../../components/PageHero'
+import { usePhotoManifest } from '../../context/PhotoManifestContext'
 
 const PLACEHOLDER_COLORS = [
   '#bdd9ea', '#f5a623', '#7ed321', '#e8604c',
@@ -10,6 +11,8 @@ const PLACEHOLDER_COLORS = [
 
 export default function KidsInActionPage() {
   const { t } = useTranslation()
+  const { manifest } = usePhotoManifest()
+  const photosK = manifest.k
 
   return (
     <PageLayout>
@@ -22,25 +25,39 @@ export default function KidsInActionPage() {
             {t('kids_page.subtitle')}
           </p>
 
-          {/* Photo grid placeholder */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            {PLACEHOLDER_COLORS.map((color, i) => (
-              <div
-                key={i}
-                className="aspect-square rounded-lg flex items-center justify-center"
-                style={{ backgroundColor: color }}
-              >
-                <span className="text-4xl text-white/50 select-none">📸</span>
-              </div>
-            ))}
-          </div>
+          {photosK.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+              {photosK.map((src, i) => (
+                <div
+                  key={i}
+                  className="aspect-square rounded-lg overflow-hidden bg-gray-100 shadow-sm"
+                >
+                  <img src={src} alt="" className="w-full h-full object-cover" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+              {PLACEHOLDER_COLORS.map((color, i) => (
+                <div
+                  key={i}
+                  className="aspect-square rounded-lg flex items-center justify-center"
+                  style={{ backgroundColor: color }}
+                >
+                  <span className="text-4xl text-white/50 select-none">📸</span>
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div
-            className="mt-12 p-6 rounded-lg text-center"
-            style={{ backgroundColor: '#f0f7fc' }}
-          >
-            <p className="text-gray-500 italic text-sm">{t('kids_page.placeholder')}</p>
-          </div>
+          {photosK.length === 0 && (
+            <div
+              className="mt-12 p-6 rounded-lg text-center"
+              style={{ backgroundColor: '#f0f7fc' }}
+            >
+              <p className="text-gray-500 italic text-sm">{t('kids_page.placeholder')}</p>
+            </div>
+          )}
 
         </div>
       </section>

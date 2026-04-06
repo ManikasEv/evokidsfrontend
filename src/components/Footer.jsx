@@ -52,7 +52,7 @@ export default function Footer() {
             <div className="w-full h-44 bg-gray-600 rounded overflow-hidden">
               <iframe
                 title="EvoKids Map"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=8.4,47.3,8.7,47.5&layer=mapnik&marker=47.3539,8.5224"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=8.502%2C47.357%2C8.524%2C47.371&layer=mapnik&marker=47.3636%2C8.512"
                 className="w-full h-full border-0"
                 loading="lazy"
               />
