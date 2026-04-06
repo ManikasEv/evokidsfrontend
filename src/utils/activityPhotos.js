@@ -1,4 +1,7 @@
-import { shuffleCopy } from './shuffle'
+/** Stable sort so the same build always assigns the same URLs (no shuffle / no random). */
+function sortUrls(urls) {
+  return [...urls].filter(Boolean).sort((a, b) => String(a).localeCompare(String(b)))
+}
 
 /** Activity-folder photos minus anything also registered as a month/inquiry image. */
 export function activityPoolExcludingInquiry(manifest) {
@@ -6,48 +9,36 @@ export function activityPoolExcludingInquiry(manifest) {
   return (manifest.a || []).filter((url) => url && !inquiryUrls.has(url))
 }
 
-/**
- * Contact form side image: use `manifest.r` (real photography), not the activity
- * pool — `photos/a` can include illustration-style art that belongs in inquiry/UI, not contact.
- */
-function contactSidePhoto(manifest) {
-  const r = manifest.r || []
-  if (!r.length) return null
-  const i = Math.min(2, r.length - 1)
-  return r[i] ?? r[0]
+/** Testimonial accents: prefer `photos/r` only (stable order); repeat if fewer than three files. Use `a` only when `r` is empty. */
+function testimonialPhotos(sortedR, sortedA) {
+  if (sortedR.length >= 3) return [sortedR[0], sortedR[1], sortedR[2]]
+  if (sortedR.length === 2) return [sortedR[0], sortedR[1], sortedR[0]]
+  if (sortedR.length === 1) return [sortedR[0], sortedR[0], sortedR[0]]
+  const src = sortedA
+  if (src.length >= 3) return [src[0], src[1], src[2]]
+  if (src.length === 2) return [src[0], src[1], src[0]]
+  if (src.length === 1) return [src[0], src[0], src[0]]
+  return [null, null, null]
 }
 
 /**
- * Activity (`a`) photos for the home page — excludes `manifest.inquiry` URLs so
- * month/inquiry images only appear in Units of Inquiry.
+ * Home page: testimonial thumbnails only (manifest). Contact uses `homeContactPhoto` in `homeSectionPhotos.js`.
  */
 export function createActivityPhotoBundle(manifest) {
   const empty = {
-    about: null,
-    philosophy: null,
     testimonials: [null, null, null],
-    contact: null,
-  }
-  const pool = activityPoolExcludingInquiry(manifest)
-  const contact = contactSidePhoto(manifest)
-  if (!pool.length) {
-    return { ...empty, contact }
   }
 
-  let queue = []
-  const refill = () => {
-    queue = shuffleCopy(pool)
+  const sortedA = sortUrls(activityPoolExcludingInquiry(manifest))
+  const sortedR = sortUrls(manifest.r || [])
+
+  const testimonials = testimonialPhotos(sortedR, sortedA)
+
+  if (!sortedA.length && !sortedR.length) {
+    return empty
   }
-  const take = () => {
-    if (queue.length === 0) refill()
-    return queue.shift() ?? null
-  }
-  refill()
 
   return {
-    about: take(),
-    philosophy: take(),
-    testimonials: [take(), take(), take()],
-    contact,
+    testimonials,
   }
 }

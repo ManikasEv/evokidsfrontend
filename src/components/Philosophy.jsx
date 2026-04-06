@@ -1,27 +1,22 @@
 import { useTranslation } from 'react-i18next'
-import { useHomeActivityPhotos } from '../context/ActivityPhotosContext'
+import { homePhilosophyPhoto } from '../data/homeSectionPhotos'
 
 export default function Philosophy() {
   const { t } = useTranslation()
-  const side = useHomeActivityPhotos()?.philosophy
 
   return (
-    <section className="py-16 md:py-20" style={{ backgroundColor: '#bdd9ea' }}>
+    <section className="py-10 md:py-16 lg:py-20" style={{ backgroundColor: '#bdd9ea' }}>
       <div
-        className={`max-w-6xl mx-auto px-4 sm:px-6 grid gap-10 md:gap-14 items-center ${
-          side ? 'md:grid-cols-2' : ''
-        }`}
+        className="mx-auto grid max-w-6xl items-center gap-6 px-4 sm:px-6 md:grid-cols-2 md:gap-14"
       >
-        {side && (
-          <div className="order-2 md:order-1 rounded-2xl overflow-hidden shadow-lg aspect-[4/3] bg-white/10">
-            <img src={side} alt="" className="w-full h-full object-cover" />
-          </div>
-        )}
-        <div className={`text-center ${side ? 'md:text-left md:order-2' : 'max-w-3xl mx-auto'}`}>
-          <h2 className="text-2xl md:text-3xl font-600 text-white mb-4">
+        <div className="order-2 aspect-[4/3] overflow-hidden rounded-2xl bg-white/10 shadow-lg md:order-1">
+          <img src={homePhilosophyPhoto} alt="" className="h-full w-full object-cover" />
+        </div>
+        <div className="text-center md:order-2 md:text-left">
+          <h2 className="mb-3 text-xl font-600 text-white md:mb-4 md:text-3xl">
             {t('philosophy.title')}
           </h2>
-          <p className="text-white/90 italic text-base md:text-lg leading-relaxed">
+          <p className="text-sm italic leading-relaxed text-white/90 md:text-lg">
             {t('about.philosophy_desc')}
           </p>
         </div>

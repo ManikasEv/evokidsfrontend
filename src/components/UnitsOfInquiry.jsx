@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { inquirySeasons } from '../data/inquiryMonths'
 import { useInquiryPhoto } from '../context/PhotoManifestContext'
+import HorizontalScrollStrip from './HorizontalScrollStrip'
 
 const SEASON_ICONS = { spring: '🌸', summer: '☀️', autumn: '🍂', winter: '❄️' }
 
@@ -70,7 +71,7 @@ function FlipCard({ month, lang, season }) {
 
 function SeasonHeader({ season, lang }) {
   return (
-    <div className="mb-6 flex items-center gap-3">
+    <div className="mb-4 flex items-center gap-2 sm:gap-3 lg:mb-6">
       <span className="text-2xl">{SEASON_ICONS[season.key]}</span>
       <h3 className="text-xl font-black uppercase tracking-widest" style={{ color: season.color }}>
         {season[lang]}
@@ -88,8 +89,18 @@ export default function UnitsOfInquiry() {
     <>
       <style>{`
         .inquiry-flip-card {
-          height: 380px;
+          height: 320px;
           position: relative;
+        }
+        @media (min-width: 640px) {
+          .inquiry-flip-card {
+            height: 360px;
+          }
+        }
+        @media (min-width: 1024px) {
+          .inquiry-flip-card {
+            height: 380px;
+          }
         }
         .inquiry-flip-inner {
           position: relative;
@@ -115,24 +126,36 @@ export default function UnitsOfInquiry() {
         }
       `}</style>
 
-      <section className="bg-white py-16 md:py-20">
+      <section className="bg-white py-10 md:py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-2 text-center text-2xl font-light text-gray-800 md:text-3xl">
+          <h2 className="mb-2 text-center text-xl font-light text-gray-800 sm:text-2xl md:text-3xl">
             {t('inquiry.title')}
           </h2>
-          <p className="mb-14 text-center text-sm text-gray-400">
+          <p className="mb-8 text-center text-xs text-gray-400 sm:text-sm lg:mb-14">
             Hover over a card to discover the monthly theme
           </p>
 
-          <div className="space-y-12">
-            {inquirySeasons.map((season) => (
+          <div className="space-y-8 lg:space-y-12">
+            {inquirySeasons.map((season, seasonIndex) => (
               <div key={season.key}>
                 <SeasonHeader season={season} lang={lang} />
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+                <HorizontalScrollStrip
+                  showHint={seasonIndex === 0}
+                  gradientFrom="from-white"
+                  scrollClassName="
+                    -mx-4 flex gap-4 overflow-x-auto overscroll-x-contain px-4 pb-2 snap-x snap-mandatory hide-scrollbar
+                    lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:px-0 lg:pb-0
+                  "
+                >
                   {season.months.map((month, i) => (
-                    <FlipCard key={i} month={month} lang={lang} season={season} />
+                    <div
+                      key={i}
+                      className="w-[min(78vw,280px)] shrink-0 snap-center lg:w-auto lg:min-w-0 lg:snap-none"
+                    >
+                      <FlipCard month={month} lang={lang} season={season} />
+                    </div>
                   ))}
-                </div>
+                </HorizontalScrollStrip>
               </div>
             ))}
           </div>

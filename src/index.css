@@ -10,3 +10,26 @@
     color: #333333;
   }
 }
+
+/* Full-viewport hero — svh/dvh fallbacks so mobile browsers fill the visible screen */
+@layer components {
+  .hero-viewport-height {
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+    height: 100vh;
+    height: 100svh;
+    height: 100dvh;
+  }
+}
+
+/* Horizontal strips on mobile — hide scrollbar but keep touch/drag scroll */
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

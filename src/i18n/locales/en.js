@@ -270,4 +270,9 @@ export default {
     newsletter_btn: 'Subscribe',
     copyright: '© 2026 EvoKids™. Designed & Powered by hextech-it.ch',
   },
+  ui: {
+    scroll_for_more: 'Swipe or tap arrows for more',
+    scroll_left: 'Scroll left',
+    scroll_right: 'Scroll right',
+  },
 }

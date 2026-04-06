@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { testimonials } from '../data/testimonials'
 import { useHomeActivityPhotos } from '../context/ActivityPhotosContext'
+import HorizontalScrollStrip from './HorizontalScrollStrip'
 
 function Stars() {
   return (
@@ -35,15 +36,22 @@ export default function Testimonials() {
   const item = testimonials[current]
 
   return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+    <section className="bg-white py-10 md:py-16 lg:py-20">
+      <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
 
         {accentRow.length > 0 && (
-          <div className="flex justify-center gap-3 mb-10">
+          <HorizontalScrollStrip
+            className="mb-6 md:mb-10"
+            gradientFrom="from-white"
+            scrollClassName="
+              -mx-4 flex justify-start gap-3 overflow-x-auto px-4 pb-1 hide-scrollbar
+              sm:mx-0 sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0
+            "
+          >
             {accentRow.map((src, i) => (
               <div
                 key={i}
-                className={`w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shadow-md ring-2 ring-white ${
+                className={`h-20 w-20 shrink-0 overflow-hidden rounded-2xl shadow-md ring-2 ring-white sm:h-28 sm:w-28 ${
                   i % 2 === 1 ? 'rotate-[2deg]' : '-rotate-2'
                 }`}
               >
@@ -54,15 +62,15 @@ export default function Testimonials() {
                 />
               </div>
             ))}
-          </div>
+          </HorizontalScrollStrip>
         )}
 
-        <h2 className="text-2xl md:text-3xl font-400 text-gray-800 mb-12">
+        <h2 className="mb-8 text-xl font-400 text-gray-800 md:mb-12 md:text-3xl">
           {t('testimonials.title')}
         </h2>
 
         {/* Single testimonial */}
-        <div className="min-h-[200px] flex flex-col items-center justify-center">
+        <div className="flex min-h-[140px] flex-col items-center justify-center md:min-h-[200px]">
           <p className="font-700 text-gray-800 text-base mb-3">{item.name}</p>
           <Stars />
           <p className="text-gray-600 text-sm leading-relaxed max-w-xl mx-auto italic">
@@ -72,7 +80,7 @@ export default function Testimonials() {
         </div>
 
         {/* Dot navigation */}
-        <div className="flex items-center justify-center gap-3 mt-10">
+        <div className="mt-6 flex items-center justify-center gap-3 md:mt-10">
           <button
             onClick={prev}
             className="text-gray-400 hover:text-gray-700 transition-colors"

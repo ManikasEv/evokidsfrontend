@@ -55,6 +55,7 @@ export default function CampusPage({ campusKey, mapSrc, comingSoon }) {
               <div className="rounded-lg overflow-hidden border border-gray-200 h-48">
                 {mapSrc ? (
                   <iframe
+                    key={campusKey}
                     title={`${name} Map`}
                     src={mapSrc}
                     className="w-full h-full border-0"

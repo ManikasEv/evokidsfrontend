@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { usePhotoManifest } from '../context/PhotoManifestContext'
+import HorizontalScrollStrip from './HorizontalScrollStrip'
 
 const campuses = [
   {
@@ -98,17 +99,27 @@ export default function Campuses() {
       <section
         id="campuses"
         ref={sectionRef}
-        className="relative z-20 bg-white -mt-12 sm:-mt-16 lg:-mt-20 shadow-[0_-12px_40px_rgba(0,0,0,0.12)]"
+        className="relative z-20 bg-white shadow-[0_-8px_32px_rgba(0,0,0,0.08)]"
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <HorizontalScrollStrip
+          gradientFrom="from-white"
+          scrollClassName="
+            flex gap-0 overflow-x-auto overscroll-x-contain snap-x snap-mandatory hide-scrollbar
+            -mx-4 scroll-pl-4 scroll-pr-4 px-4 pb-1 pt-0
+            lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:scroll-pl-0 lg:scroll-pr-0 lg:px-0 lg:pb-0
+          "
+        >
           {campuses.map((campus) => {
             const cityPhoto = cities[campus.key] ?? null
             return (
-            <div key={campus.key} className="campus-card border-r border-gray-100 last:border-r-0 flex flex-col">
+            <div
+              key={campus.key}
+              className="campus-card flex w-[min(85vw,300px)] shrink-0 snap-center flex-col border-r border-gray-100 last:border-r-0 lg:w-auto lg:min-w-0 lg:snap-none"
+            >
 
               {/* City photo per campus; fixed frame, uniform crop */}
               <div
-                className="w-full h-56 sm:h-64 lg:h-72 shrink-0 overflow-hidden bg-neutral-100"
+                className="h-44 w-full shrink-0 overflow-hidden bg-neutral-100 sm:h-52 lg:h-72"
                 style={!cityPhoto ? { backgroundColor: campus.color } : undefined}
               >
                 {cityPhoto ? (
@@ -121,7 +132,7 @@ export default function Campuses() {
               </div>
 
               {/* Info */}
-              <div className="px-8 py-7 flex flex-col flex-1 text-center">
+              <div className="flex flex-1 flex-col px-5 py-5 text-center lg:px-8 lg:py-7">
                 <h3 className="text-sm font-black uppercase tracking-widest text-gray-800 mb-2">
                   {t(`campuses.${campus.key}`)}
                 </h3>
@@ -149,7 +160,7 @@ export default function Campuses() {
             </div>
             )
           })}
-        </div>
+        </HorizontalScrollStrip>
       </section>
     </>
   )

@@ -181,4 +181,9 @@ export default {
     newsletter_btn: 'Εγγραφή',
     copyright: '© 2026 EvoKids™. Designed & Powered by hextech-it.ch',
   },
+  ui: {
+    scroll_for_more: 'Σύρετε ή πατήστε τα βέλη για περισσότερα',
+    scroll_left: 'Κύλιση αριστερά',
+    scroll_right: 'Κύλιση δεξιά',
+  },
 }
