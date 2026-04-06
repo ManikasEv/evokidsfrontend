@@ -2,11 +2,11 @@
 
 @theme {
   --font-family-sans: 'Nunito', sans-serif;
-  --color-cream: #FFFBF5;
 }
 
 @layer base {
   body {
-    background-color: #FFFBF5;
+    background-color: #ffffff;
+    color: #333333;
   }
 }

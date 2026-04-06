@@ -1,130 +1,159 @@
+import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { MapPin, ExternalLink } from 'lucide-react'
-import { useGsapEntrance, useGsapStagger } from '../hooks/useGsapEntrance'
 
-const campusData = [
+const campuses = [
   {
     key: 'zurich',
-    nameKey: 'campuses.zurich',
+    to: '/campuses/zurich',
     addrKey: 'campuses.zurich_addr',
+    color: '#4a90d9',       // sky-blue
     emoji: '🏙️',
-    headerBg: 'bg-gradient-to-br from-orange-400 to-orange-600',
-    badge: 'bg-orange-100 text-orange-700',
-    mapUrl: 'https://maps.google.com/?q=Leimbachstrasse+21+8041+Zurich',
-    comingSoon: false,
   },
   {
     key: 'baden',
-    nameKey: 'campuses.baden',
+    to: '/campuses/baden',
     addrKey: 'campuses.baden_addr',
+    color: '#e8604c',       // coral
     emoji: '🌳',
-    headerBg: 'bg-gradient-to-br from-sky-400 to-sky-600',
-    badge: 'bg-sky-100 text-sky-700',
-    mapUrl: 'https://maps.google.com/?q=Haselstrasse+6+5400+Baden',
-    comingSoon: false,
   },
   {
     key: 'bad_ragaz',
-    nameKey: 'campuses.bad_ragaz',
+    to: '/campuses/bad-ragaz',
     addrKey: 'campuses.bad_ragaz_addr',
-    emoji: '🏔️',
-    headerBg: 'bg-gradient-to-br from-green-400 to-green-600',
-    badge: 'bg-green-100 text-green-700',
-    mapUrl: 'https://maps.google.com/?q=Floraweg+1A+7310+Bad+Ragaz',
-    comingSoon: false,
+    color: '#7ed321',       // green
+    emoji: '💧',
   },
   {
     key: 'zug',
-    nameKey: 'campuses.zug',
+    to: '/campuses/zug',
     addrKey: null,
-    emoji: '🌄',
-    headerBg: 'bg-gradient-to-br from-violet-400 to-violet-600',
-    badge: 'bg-violet-100 text-violet-700',
-    mapUrl: null,
+    color: '#9b59b6',       // purple
+    emoji: '⭐',
     comingSoon: true,
   },
 ]
 
 export default function Campuses() {
   const { t } = useTranslation()
-  const headingRef = useGsapEntrance()
-  const cardsRef = useGsapStagger('.campus-card')
+  const sectionRef = useRef(null)
+
+  /* Staggered fade-up on scroll into view — pure CSS + IntersectionObserver */
+  useEffect(() => {
+    const cards = sectionRef.current?.querySelectorAll('.campus-card')
+    if (!cards) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('campus-card--visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.15 }
+    )
+
+    cards.forEach((card) => observer.observe(card))
+    return () => observer.disconnect()
+  }, [])
 
   return (
-    <section id="campuses" className="bg-[#FFFBF5] py-20 md:py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
-        <div ref={headingRef} className="text-center mb-14">
-          <span className="inline-block bg-sky-100 text-sky-700 text-sm font-800 px-4 py-1.5 rounded-full mb-4">
-            📍 {t('campuses.title')}
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-900 text-gray-800 leading-tight mb-3">
-            {t('campuses.title')}
-          </h2>
-          <p className="text-base text-gray-500 font-500 max-w-xl mx-auto">
-            {t('campuses.subtitle')}
-          </p>
-        </div>
+    <>
+      <style>{`
+        .campus-card {
+          opacity: 0;
+          transform: translateY(28px);
+          transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.25s ease;
+        }
+        .campus-card:nth-child(1) { transition-delay: 0s; }
+        .campus-card:nth-child(2) { transition-delay: 0.1s; }
+        .campus-card:nth-child(3) { transition-delay: 0.2s; }
+        .campus-card:nth-child(4) { transition-delay: 0.3s; }
+        .campus-card--visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .campus-card:hover {
+          box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+          transform: translateY(-4px);
+        }
+        .campus-card--visible:hover {
+          transform: translateY(-4px);
+        }
+        .campus-see-link::after {
+          content: '';
+          display: block;
+          height: 1px;
+          background: currentColor;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.25s ease;
+        }
+        .campus-card:hover .campus-see-link::after {
+          transform: scaleX(1);
+        }
+      `}</style>
 
-        {/* Campus cards */}
-        <div ref={cardsRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {campusData.map((campus) => (
-            <div
-              key={campus.key}
-              className={`campus-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 ${
-                campus.comingSoon ? 'opacity-75' : ''
-              }`}
-            >
-              {/* Color header */}
-              <div className={`${campus.headerBg} p-8 flex flex-col items-center justify-center text-white`}>
-                <span className="text-5xl mb-3">{campus.emoji}</span>
-                <h3 className="text-xl font-900">{t(campus.nameKey)}</h3>
-                {campus.comingSoon && (
-                  <span className="mt-2 bg-white/25 text-white text-xs font-800 px-3 py-1 rounded-full">
-                    {t('campuses.coming_soon')}
-                  </span>
-                )}
+      <section
+        id="campuses"
+        ref={sectionRef}
+        className="relative z-20 bg-white -mt-14 sm:-mt-20 lg:-mt-24 shadow-[0_-12px_40px_rgba(0,0,0,0.12)]"
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          {campuses.map((campus) => (
+            <div key={campus.key} className="campus-card border-r border-gray-100 last:border-r-0 flex flex-col">
+
+              {/* Photo placeholder with campus colour */}
+              <div
+                className="h-52 flex flex-col items-center justify-center gap-2 relative overflow-hidden"
+                style={{ backgroundColor: campus.color }}
+              >
+                {/* Subtle radial shine */}
+                <div
+                  className="absolute inset-0 opacity-20"
+                  style={{ background: 'radial-gradient(circle at 40% 35%, #fff 0%, transparent 65%)' }}
+                />
+                <span className="text-6xl relative z-10 select-none">{campus.emoji}</span>
+                <span
+                  className="text-xs font-bold uppercase tracking-widest text-white/70 relative z-10"
+                  style={{ letterSpacing: '0.2em' }}
+                >
+                  {t(`campuses.${campus.key}`)}
+                </span>
               </div>
 
-              {/* Card body */}
-              <div className="p-6">
-                {campus.addrKey && (
-                  <div className="flex items-start gap-2 text-gray-600 mb-5">
-                    <MapPin size={16} className="shrink-0 mt-0.5 text-gray-400" />
-                    <span className="text-sm font-600">{t(campus.addrKey)}</span>
-                  </div>
-                )}
+              {/* Info */}
+              <div className="px-8 py-7 flex flex-col flex-1 text-center">
+                <h3 className="text-sm font-black uppercase tracking-widest text-gray-800 mb-2">
+                  {t(`campuses.${campus.key}`)}
+                </h3>
 
-                {!campus.comingSoon ? (
-                  <div className="flex flex-col gap-2">
-                    <a
-                      href="#contact"
-                      className="block w-full text-center py-2.5 bg-orange-400 hover:bg-orange-500 text-white font-700 text-sm rounded-xl transition-colors duration-200"
-                    >
-                      {t('campuses.see_campus')}
-                    </a>
-                    {campus.mapUrl && (
-                      <a
-                        href={campus.mapUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-1.5 py-2.5 border border-gray-200 text-gray-600 hover:border-sky-300 hover:text-sky-600 font-600 text-sm rounded-xl transition-colors duration-200"
-                      >
-                        <ExternalLink size={13} />
-                        {t('campuses.get_directions')}
-                      </a>
-                    )}
-                  </div>
+                {campus.addrKey ? (
+                  <p className="text-sm text-gray-500 mb-5">
+                    {t(campus.addrKey)}
+                  </p>
                 ) : (
-                  <p className="text-sm text-gray-400 font-600 text-center py-1">
+                  <p className="text-sm text-gray-400 italic mb-5">
                     {t('campuses.coming_soon')}
                   </p>
                 )}
+
+                <div className="mt-auto">
+                  <Link
+                    to={campus.to}
+                    className="campus-see-link inline-block text-[11px] font-bold uppercase tracking-widest text-gray-500 hover:text-sky-500 transition-colors duration-200"
+                  >
+                    {t('campuses.see_campus')} &rsaquo;
+                  </Link>
+                </div>
               </div>
+
             </div>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
